@@ -1,4 +1,5 @@
 import express from 'express';
+import { User, createUser } from '../models/User';
 let router =  express.Router();
 
 router.get('/', function(req, res) {
@@ -26,8 +27,26 @@ router.post('/register', function(req, res) {
     if(errors){
         res.render('pages/register', {errors: errors});
     } else {
-        console.log('Success')
+        let user = new User({
+            name: name,
+            email: email,
+            password: password
+        });
+        createUser(user, function(err, user) {
+            if(err) throw err;
+            else console.log(user);
+        });
+        req.flash('success_message','You Have registered, Now Please login');
+        res.redirect('login');
     }
 });
+
+router.get('/login', function(req, res) {
+    res.render('pages/login');
+});
+
+router.post('login', function(req, res) {
+    res.render('pages/login')
+})
 
 export default router;
