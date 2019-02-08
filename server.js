@@ -13,6 +13,7 @@ import index from './routes/index';
 import users from './routes/users';
 
 mongoose.Promise = global.Promise;
+mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb://localhost/passport', { useNewUrlParser: true });
 let db = mongoose.connect;
 
@@ -31,8 +32,8 @@ app.use(cookeParser());
 
 app.use(session({
     secret: 'keyboard cat',
-    resave: false,
-    saveUnintialized: true,
+    resave: true,
+    saveUnintialized: true
 }));
 
 app.use(passport.initialize());
@@ -51,8 +52,7 @@ app.use(function(req, res, next) {
 });
 
 app.use('/', index);
-app.use('users', users);
-
+app.use('/users', users);
 
 app.listen(PORT, function() {
     console.log('Server is running on', PORT);

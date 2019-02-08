@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+import passport from 'passport';
 
 let UserSchema = mongoose.Schema({
     name: {
@@ -23,4 +24,20 @@ export const createUser = (newUser, callback) => {
             newUser.save(callback)
         })
     })
+}
+
+export const getUserByEmail = (email, callback) => {
+    let obj = {email: email}
+    User.findOne(obj, callback);
+}
+
+export const comparePassword = (password, hash, callback) => {
+    bcrypt.compare(password, hash, function(err, isMatch) {
+        if(err) throw err;
+        callback(null, isMatch);
+    });
+}
+
+export const getUserById = (id, callback) => {
+    User.findById(id, callback);
 }
