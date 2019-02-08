@@ -1,6 +1,21 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
+        <%if (success_message != '') { %>
+            <div class="alert alert-success">
+                <%= success_message %>
+            </div>
+        <% } %>
+        <%if (error_message != '') { %>
+            <div class="alert alert-danger">
+                <%= error_message %>
+            </div>
+        <% } %>
+        <%if (error != '') { %>
+            <div class="alert alert-danger">
+                <%= error %>
+            </div>
+        <% } %>
             <a class="navbar-brand" href="#">
                 Express Auth App
             </a>

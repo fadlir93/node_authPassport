@@ -13,9 +13,7 @@ import index from './routes/index';
 import users from './routes/users';
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/passport', {
-    useMongoClient: true
-});
+mongoose.connect('mongodb://localhost/passport', { useNewUrlParser: true });
 let db = mongoose.connect;
 
 
